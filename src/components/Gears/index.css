@@ -1,0 +1,25 @@
+.gearsHeader{
+    display: flex;;
+    justify-content: center;
+}
+
+#searchGears{
+    padding: .5rem 1rem;
+    border: 2px solid dodgerblue;
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+}
+
+.gears{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+    margin-top: 2rem;
+}
+
+@media screen and (max-width: 760px){
+    .gears{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

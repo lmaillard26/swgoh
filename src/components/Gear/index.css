@@ -1,0 +1,26 @@
+.gear{
+    display: flex;
+    padding: .5rem 1rem;
+    border: 1px solid #666;
+    border-radius: 10px;
+    align-items: center;
+    cursor: default;
+}
+
+.gear img{
+    width: 32px;
+    height: 32px;
+}
+
+.gear span{
+    padding-left: 1rem;
+}
+
+.gear button{
+    margin-left: auto;
+    border: 0;
+    background-color: transparent;
+    font-size: 28px;
+    color: dodgerblue;
+    cursor: pointer;
+}
