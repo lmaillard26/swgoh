@@ -5,7 +5,7 @@ export const Form = ({ onSubmit }) => {
     <form onSubmit={onSubmit}>
       <div className="form-group">
         <label htmlFor="amount">Amount : </label>
-        <input className="form-control" id="amount" />
+        <input className="form-control" id="amount" autoComplete="off" />
       </div>
       <div className="form-group">
         <button className="form-control btn btn-primary" type="submit">

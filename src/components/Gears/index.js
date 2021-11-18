@@ -1,8 +1,9 @@
 import React from 'react';
 import "./index.css";
-import $ from "jquery";
+// import $ from "jquery";
 
 import Gear from "../Gear";
+import { restdb } from '../../App';
 
 class GearsHeader extends React.Component{
 	constructor(props){
@@ -38,7 +39,6 @@ export default class Gears extends React.Component{
 		this.state = {
 			searchGears: "",
 			gears: [],
-			farmList: [],
 			error: null,
       		isLoaded: false,
 		};
@@ -47,29 +47,14 @@ export default class Gears extends React.Component{
 		this.handleGearClick = this.handleGearClick.bind(this);
 	}
 
-	componentDidMount() {
-		$.get("https://swgoh-08e2.restdb.io/rest/gears?apikey=6ca7bcb63f2e55be8e37e984290c8bb7653ce", (data) => {
+	componentDidMount(){
+		restdb.get("/rest/gears").then(res => {
 			this.setState({
 				isLoaded: true,
-				gears: data
+				gears: res.data
 			});
 		});
-		// fetch("https://swgoh-08e2.restdb.io/rest/gears")
-		//   	.then(res => res.json())
-		//   	.then((result) => {
-		// 		this.setState({
-		// 			isLoaded: true,
-		// 			gears: result
-		// 		});
-		// 	},
-		// 	(error) => {
-		// 		this.setState({
-		// 			isLoaded: true,
-		// 			error
-		// 		});
-		// 	}
-		// )
-	  }
+	}
 
 	handleSearchGearsChange(value){
 		this.setState({
@@ -77,22 +62,25 @@ export default class Gears extends React.Component{
 		});
 	}
 
-	handleGearClick(id){
-
+	handleGearClick(id, amount){
+		restdb.post("/rest/farm",
+			{id: id, amount: amount, acquire: 0}
+		).catch(function(error){
+			console.log(error);
+		})
 	}
 
 	render(){
 		const {error, isLoaded} = this.state;
 		let {gears, searchGears} = this.state;
-		let {ids, header} = this.props;
 
-		if (error)
+		if(error)
 			return <div>Erreur : {error.message}</div>;
-		else if (!isLoaded)
+		else if(!isLoaded)
 			return <div>Chargement…</div>;
 		else{
-			if(ids)
-				gears = ids.length ? gears.filter(g => ids.includes(g.base_id)) : [];
+			// if(ids.length)
+			// 	gears = gears.filter(g => ids.includes(g.base_id));
 
 			if(searchGears && searchGears.length)
 				gears = gears.filter(g => g.name.toLowerCase().includes(searchGears.toLowerCase()));
@@ -109,10 +97,10 @@ export default class Gears extends React.Component{
 		
 			return(
 				<>
-					{header && <GearsHeader
+					<GearsHeader
 						searchGears={searchGears}
 						handleSearchGearsChange={this.handleSearchGearsChange}
-					/>}
+					/>
 					<div className="gears">
 						{listGears}
 					</div>

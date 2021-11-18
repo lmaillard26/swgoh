@@ -10,21 +10,24 @@ class Gear extends React.Component{
 	}
 
 	handleGearClick(e){
-        e.preventDefault();
-		this.props.handleGearClick(e.target.amount.value);
+		e.preventDefault();
+		this.props.handleGearClick(this.props.gear.base_id, e.target.amount.value);
 	}
 
 	render(){
 		const gear = this.props.gear;
         const triggerText = "+";
 
-		return(
-			<div className="gear">
-				<img src={gear.image} alt="" />
-				<span>{gear.name}</span>
-				<Container triggerText={triggerText} onSubmit={this.handleGearClick} />
-			</div>
-		);
+		if(gear.name){
+			return(
+				<div className="gear">
+					<img src={gear.image} alt="" />
+					<span>{gear.name}</span>
+					<Container triggerText={triggerText} onSubmit={this.handleGearClick} />
+				</div>
+			);
+		}
+		return false;
 	}
 }
 

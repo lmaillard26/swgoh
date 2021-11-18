@@ -6,15 +6,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import Gears from "./components/Gears";
+import FarmList from "./components/FarmList";
 
-let farmList = [];
-
-function addToFarmList(id){
-	farmList.push(id);
+// function addToFarmList(id){
+	// farmList.push(id);
 	// this.setState({
 	// 	farmList: farmList
 	// });
-}
+// }
 
 ReactDOM.render(
   	<React.StrictMode>
@@ -22,17 +21,10 @@ ReactDOM.render(
 			<Routes>
 				<Route path="/" element={<App />}>
 					<Route path="gears" element={
-						<Gears
-							header={true}
-							addToFarmList={addToFarmList}
-						/>
+						<Gears header={true} />
 					} />
 					<Route path="farmList" element={
-						<Gears
-							header={false}
-							addToFarmList={addToFarmList}
-							ids={farmList}
-						/>
+						<FarmList />
 					} />
 				</Route>
 			</Routes>
